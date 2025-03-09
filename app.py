@@ -134,7 +134,7 @@ def update_pdf_content(pdf_file):
 # ----------------------------------------------------------------
 custom_css = """
 body {
-    background-color: #ADD8E6 !important;
+    background: linear-gradient(to top, #ADD8E6, #ffffff) !important;
     color: #000 !important;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     margin: 0;
@@ -142,7 +142,7 @@ body {
 }
 footer {display: none !important;}
 .gradio-container {
-    background-color: #ADD8E6 !important;
+    background: linear-gradient(to top, #ADD8E6, #ffffff) !important;
     width: 100% !important;
     max-width: none !important;
     margin: 0 !important;
@@ -199,16 +199,35 @@ footer {display: none !important;}
         font-size: 1.4rem !important;
     }
 }
+.gradio-container label {
+    font-size: 1.4rem !important;
+    font-weight: 700 !important;
+}
+
+.send-btn {
+    font-size: 1.4rem !important;
+    font-weight: 700 !important;
+}
+
+.gr-textbox textarea::placeholder {
+    font-size: 1.4rem !important;
+    font-weight: 700 !important;
+}
+.gradio-container input::placeholder,
+.gradio-container textarea::placeholder {
+    font-size: 1.4rem !important;
+    font-weight: 700 !important;
+    color: #444 !important; 
+}
+
 """
 
 with gr.Blocks(css=custom_css) as demo:
     gr.Markdown("<div id='title'> PolicyPilot</div>", elem_id="title")
     gr.Markdown(
-        "<div id='subtitle'>"
-        "Please provide a scientific paper for PolicyPilot to generate a detailed, accurate policy brief."
-        "</div>",
-        elem_id="subtitle"
-    )
+    "<div id='subtitle'><b>Please provide a scientific paper for PolicyPilot to generate a detailed, accurate policy brief.</b></div>",
+    elem_id="subtitle"
+)
 
     pdf_content_state = gr.State("")
     chat_history_state = gr.State([])
@@ -225,7 +244,8 @@ with gr.Blocks(css=custom_css) as demo:
         )
         user_input = gr.Textbox(
             placeholder="Type your question here...",
-            label="Your Message",
+            #label="",
+            show_label=False,
             scale=3
         )
         send_btn = gr.Button(
